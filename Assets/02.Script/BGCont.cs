@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class BGCont : MonoBehaviour
 {
-    public Transform[] bgs; 
-
-    
-    void Update()
+    [System.Serializable]
+    public class BGData
     {
-        for (int i = 0; i < bgs.Length; i++)
-        {
-            bgs[i].Translate(Vector2.down * Time.deltaTime * 3f);
-        }
+        public Transform bgT;
+        public float speed;
     }
+    public BGData[] bgData;
+
+    public void Start()
+    {
+        
+    }
+
+    public void Update()
+    {
+        for (int i = 0; i < bgData.Length; i++)
+        {
+            bgData[i].bgT.Translate(Vector3.down * Time.deltaTime * bgData[i].speed);
+        }
+        
+    }
+
 }
