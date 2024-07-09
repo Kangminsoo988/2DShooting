@@ -22,6 +22,12 @@ public class BGCont : MonoBehaviour
         for (int i = 0; i < bgData.Length; i++)
         {
             bgData[i].bgT.Translate(Vector3.down * Time.deltaTime * bgData[i].speed);
+
+            if(bgData[i].bgT.position.y <= -12)
+            {
+                bgData[i].bgT.position = new Vector3(0, 12f);
+            }
+
         }
         
     }
