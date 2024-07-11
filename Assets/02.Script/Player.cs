@@ -6,7 +6,8 @@ public class Player : MonoBehaviour
 {
     public Sprite[] centerSp;
 
-    private int index;
+    private float timer;
+    private int index = 0;
     public float delay;
     public float speed;
 
@@ -19,28 +20,49 @@ public class Player : MonoBehaviour
     
     void Update()
     {
+        Move();
+        Attack();
+    }
+
+    void Move()
+    {
         float x = Input.GetAxisRaw("Horizontal");
 
         float y = Input.GetAxisRaw("Vertical");
 
-        if((transform.position.x >= -2.5f && transform.position.x <= 2.5f)
-            (transform.position.y >= -4.5f && transform.position.y <= -4.5f))
-        {
-            transform.Translate(new Vector2(x, y) * Time.deltaTime * speed)
-        }
-        else
-        {
-            if(transform.position.x <= -2.5f)
-            {
-                transform.position = new Vector2(-2.5f, transform.position.y);
-            }
-            else if (transform.position.x <= 2.5f)
-            {
-                transform.position = new Vector2(2.5f, transform.position.y);
-            }
-        }
+        float clampX = Mathf.Clamp(transform.position.x + x, -2.5f, 2.5f);
+        float clampY = Mathf.Clamp(transform.position.y + y, -4.5f, 4.5f);
 
-        timer = timer
+        transform.position = new Vector2(clampX, clampY);
 
+
+        timer = timer + Time.deltaTime;
+
+        if (time > delay)
+        {
+            timer = 0;
+
+            GetComponent<SpriteRenderer>().sprite = centerSp[index];
+
+            index++;
+
+            if (index >= centerSp.Length)
+            {
+                index = 0;
+            }
+        }
+    }
+
+    float fireDelay = 0.5f;
+    float fireTimer;
+
+    void Attack()
+    {
+        fireTimer += Time.deltaTime;
+        if (fireTimer >= fireDelay && input.GetKey(KeyCode.Space))
+        {
+            fireTimer = 0;
+            Debug.Log("น฿ป็");
+        }
     }
 }
