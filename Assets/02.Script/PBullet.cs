@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PBullet : MonoBehaviour
 {
+    [HideInInspector]
+    public float speed;
     
     void Start()
     {
@@ -13,7 +15,7 @@ public class PBullet : MonoBehaviour
     
     void Update()
     {
-        transform.Translate(Vector2.up * Time.deltaTime * 10f);
+        transform.Translate(Vector3.up * Time.deltaTime * 10f);
         
     }
 }

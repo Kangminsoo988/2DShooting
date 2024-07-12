@@ -5,6 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Sprite[] centerSp;
+    public PBullet bullet;
+    public Transform parent;
+    public Transform bulletParent;
 
     private float timer;
     private int index = 0;
@@ -62,7 +65,10 @@ public class Player : MonoBehaviour
         if (fireTimer >= fireDelay && input.GetKey(KeyCode.Space))
         {
             fireTimer = 0;
-            Debug.Log("น฿ป็");
+
+            PBullet obj = Instantiate(bullet, parent);
+            obj.speed = bulletSpeed;
+            obj.transform.SetParent = bulletParent;
         }
     }
 }
